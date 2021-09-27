@@ -19,7 +19,8 @@ namespace Exercises.Level1
         /// </summary>
         public bool CigarParty(int cigars, bool isWeekend)
         {
-            throw new NotImplementedException();
+            // throw new NotImplementedException();
+            return cigars >= 40 && (cigars <= 60 || isWeekend);
         }
 
         /// <summary>
@@ -36,7 +37,14 @@ namespace Exercises.Level1
         /// </summary>
         public int DateFashion(int you, int date)
         {
-            throw new NotImplementedException();
+            switch (true) {
+                case true when you <= 2 || date <= 2: // we start with the most narrowest case
+                    return 0;
+                case true when you >= 8 || date >= 8:
+                    return 2;
+                default:
+                    return 1;
+            }
         }
 
         /// <summary>
@@ -51,7 +59,10 @@ namespace Exercises.Level1
         /// </summary>
         public bool SquirrelPlay(int temp, bool isSummer)
         {
-            throw new NotImplementedException();
+            var minTemp = 60;
+            var maxTemp = isSummer ? 100 : 90;
+
+            return temp >= minTemp && temp <= maxTemp;
         }
 
         /// <summary>
@@ -65,9 +76,29 @@ namespace Exercises.Level1
         /// caughtSpeeding(65, false) → 1
         /// caughtSpeeding(65, true) → 0
         /// </summary>
+        /// 
+        enum Ticket
+        {
+            NoTicket,
+            SmallTicket,
+            BigTicket,
+        }
         public int CaughtSpeeding(int speed, bool isBirthday)
         {
-            throw new NotImplementedException();
+            var birthdayGift = isBirthday ? 5 : 0;
+
+            var allowedSpeed = 60 + birthdayGift;
+            var wayTooMuchSpeed = 80 + birthdayGift;
+
+            switch (true)
+            {
+                case true when speed <= allowedSpeed:
+                    return (int) Ticket.NoTicket;
+                case true when speed > allowedSpeed && speed <= wayTooMuchSpeed:
+                    return (int) Ticket.SmallTicket;
+                default:
+                    return (int) Ticket.BigTicket;
+            }
         }
 
         /// <summary>
@@ -80,7 +111,13 @@ namespace Exercises.Level1
         /// </summary>
         public int SortaSum(int a, int b)
         {
-            throw new NotImplementedException();
+            var sum = a + b;
+
+            var minForbidden = 10;
+            var maxForbidden = 19;
+            var resultForbidden = 20;
+
+            return (sum >= minForbidden && sum <= maxForbidden) ? resultForbidden : sum;
         }
 
         /// <summary>
@@ -96,7 +133,19 @@ namespace Exercises.Level1
         /// </summary>
         public string AlarmClock(int day, bool vacation)
         {
-            throw new NotImplementedException();
+            var workdayAlarm = "7:00";
+            var weekendAlarm = "10:00";
+            var offAlarm = "off";
+
+            var isWeekday = day >= 1 && day <= 5;
+
+            if (isWeekday)
+            {
+                return vacation ? weekendAlarm : workdayAlarm;
+            }
+            else {
+                return vacation ? offAlarm : weekendAlarm;
+            }
         }
 
         /// <summary>
@@ -110,7 +159,16 @@ namespace Exercises.Level1
         /// </summary>
         public bool Love6(int a, int b)
         {
-            throw new NotImplementedException();
+
+            // TODO: solve
+
+            const int magicNumber = 6;
+
+            var isEqual = a == magicNumber || b == magicNumber;
+            var isSum = Math.Abs(a + b) == magicNumber;         // math.abs converts -6 to 6. Need to solve case of a = -2 and b = -4;
+            var isDifference = Math.Abs(a - b) == magicNumber;
+         
+            return isEqual || isSum || isDifference;
         }
 
         /// <summary>
@@ -124,7 +182,12 @@ namespace Exercises.Level1
         /// </summary>
         public bool In1To10(int n, bool outsideMode)
         {
-            throw new NotImplementedException();
+
+            var inside = n >= 1 && n <= 10;
+            var outside = n <= 1 || n >= 10;
+
+            return outsideMode ? outside : inside;
+            
         }
 
         /// <summary>
@@ -137,7 +200,10 @@ namespace Exercises.Level1
         /// </summary>
         public bool SpecialEleven(int n)
         {
-            throw new NotImplementedException();
+            const int specialNumber = 11;
+            var remainder = n % specialNumber;
+
+            return  remainder == 0 || remainder == 1;
         }
 
         /// <summary>
@@ -150,7 +216,10 @@ namespace Exercises.Level1
         /// </summary>
         public bool More20(int n)
         {
-            throw new NotImplementedException();
+            const int specialNumber = 20;
+            var remainder = n % specialNumber;
+
+            return remainder == 1 || remainder == 2;
         }
 
         /// <summary>
@@ -163,7 +232,14 @@ namespace Exercises.Level1
         /// </summary>
         public bool Old35(int n)
         {
-            throw new NotImplementedException();
+            const int specialNumber1 = 3;
+            const int specialNumber2 = 5;
+            var remainder1 = n % specialNumber1;
+            var remainder2 = n % specialNumber2;
+
+            if (remainder1 == 0 && remainder2 == 0) return false;
+
+            return remainder1 == 0 || remainder2 == 0;
         }
 
         /// <summary>
@@ -177,7 +253,9 @@ namespace Exercises.Level1
         /// </summary>
         public bool Less20(int n)
         {
-            throw new NotImplementedException();
+            const int specialNumber = 20;
+
+            return (n + 1) % 20 == 0 || (n + 2) % 20 == 0;
         }
 
         /// <summary>
