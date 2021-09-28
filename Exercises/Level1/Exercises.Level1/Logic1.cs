@@ -160,12 +160,11 @@ namespace Exercises.Level1
         public bool Love6(int a, int b)
         {
 
-            // TODO: solve
-
+      
             const int magicNumber = 6;
 
             var isEqual = a == magicNumber || b == magicNumber;
-            var isSum = Math.Abs(a + b) == magicNumber;         // math.abs converts -6 to 6. Need to solve case of a = -2 and b = -4;
+            var isSum = (a + b) == magicNumber;         // math.abs converts -6 to 6. Need to solve case of a = -2 and b = -4;
             var isDifference = Math.Abs(a - b) == magicNumber;
          
             return isEqual || isSum || isDifference;
