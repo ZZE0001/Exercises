@@ -18,7 +18,21 @@ namespace Exercises.Level1
         /// </summary>
         public bool FirstLast6(int[] nums)
         {
-            throw new NotImplementedException();
+            const int magicNumber = 6;
+
+            var firstIndex = 0;
+            var lastIndex = nums.Length - 1;
+
+            if (nums[firstIndex] == magicNumber) {
+                return true;
+            }
+
+            if (nums[lastIndex] == magicNumber)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -31,7 +45,13 @@ namespace Exercises.Level1
         /// </summary>
         public bool SameFirstLast(int[] nums)
         {
-            throw new NotImplementedException();
+
+            if (nums.Length == 0 || nums == null) return false;
+
+            var isValidLength = nums.Length >= 1;
+            var isEqualFirstAndLast = nums[0] == nums[nums.Length - 1];
+
+            return isValidLength && isEqualFirstAndLast;
         }
 
         /// <summary>
@@ -41,7 +61,8 @@ namespace Exercises.Level1
         /// </summary>
         public int[] MakePi()
         {
-            throw new NotImplementedException();
+            int[] pi = { 3, 1, 4 };
+            return pi;
         }
 
         /// <summary>
@@ -54,7 +75,16 @@ namespace Exercises.Level1
         /// </summary>
         public bool CommonEnd(int[] a, int[] b)
         {
-            throw new NotImplementedException();
+            if (a.Length == 0 || a == null || b.Length == 0 || b == null) return false;
+
+            var aFirst = a[0];
+            var bFirst = b[0];
+
+            var aLast = a[a.Length - 1];
+            var bLast = b[b.Length - 1];
+
+            return aFirst == bFirst || aLast == bLast;
+
         }
 
         /// <summary>
@@ -66,7 +96,8 @@ namespace Exercises.Level1
         /// </summary>
         public int Sum3(int[] nums)
         {
-            throw new NotImplementedException();
+            // we do not use loop here as per requirements
+            return nums[0] + nums[1] + nums[2];
         }
 
         /// <summary>
@@ -79,7 +110,8 @@ namespace Exercises.Level1
         /// </summary>
         public int[] RotateLeft3(int[] nums)
         {
-            throw new NotImplementedException();
+            int[] newArray = { nums[1], nums[2], nums[0] };
+            return newArray;
         }
 
         /// <summary>
@@ -92,7 +124,8 @@ namespace Exercises.Level1
         /// </summary>
         public int[] Reverse3(int[] nums)
         {
-            throw new NotImplementedException();
+            int[] newArray = { nums[2], nums[1], nums[0] };
+            return newArray;
         }
 
         /// <summary>
@@ -105,7 +138,12 @@ namespace Exercises.Level1
         /// </summary>
         public int[] MaxEnd3(int[] nums)
         {
-            throw new NotImplementedException();
+            var isFirstLargest = nums[0] >= nums[nums.Length - 1];
+
+            int[] newArrayFirst = { nums[0], nums[0], nums[0]};
+            int[] newArrayLast = { nums[nums.Length -1], nums[nums.Length - 1], nums[nums.Length - 1] };
+
+            return isFirstLargest ? newArrayFirst : newArrayLast;
         }
 
         /// <summary>
@@ -119,7 +157,11 @@ namespace Exercises.Level1
         /// </summary>
         public int Sum2(int[] nums)
         {
-            throw new NotImplementedException();
+            if (nums.Length == 0 || nums == null) return 0;
+
+            if (nums.Length < 2 ) return nums[0];
+
+            return nums[0] + nums[1];
         }
 
         /// <summary>
@@ -132,7 +174,8 @@ namespace Exercises.Level1
         /// </summary>
         public int[] MiddleWay(int[] a, int[] b)
         {
-            throw new NotImplementedException();
+            int[] newArray = { a[1], b[1] };
+            return newArray;
         }
 
         /// <summary>
@@ -145,7 +188,17 @@ namespace Exercises.Level1
         /// </summary>
         public int[] MakeEnds(int[] nums)
         {
-            throw new NotImplementedException();
+
+            int[] newArray = new int[2];
+
+            if (nums.Length == 0 || nums == null) return newArray;
+
+            var isSmallArray = nums.Length == 1;
+
+            newArray[0] = nums[0];
+            newArray[1] = isSmallArray ? nums[0] : nums[nums.Length - 1];
+
+            return newArray;
         }
 
         /// <summary>
@@ -157,7 +210,10 @@ namespace Exercises.Level1
         /// </summary>
         public bool Has23(int[] nums)
         {
-            throw new NotImplementedException();
+            var isEqualsTwo = nums[0] == 2 || nums[1] == 2;
+            var isEqualsThree = nums[0] == 3 || nums[1] == 3;
+
+            return isEqualsTwo || isEqualsThree;
         }
 
         /// <summary>
@@ -169,7 +225,10 @@ namespace Exercises.Level1
         /// </summary>
         public bool No23(int[] nums)
         {
-            throw new NotImplementedException();
+            var isEqualsTwo = nums[0] == 2 || nums[1] == 2;
+            var isEqualsThree = nums[0] == 3 || nums[1] == 3;
+
+            return !isEqualsTwo && !isEqualsThree;
         }
 
         /// <summary>
@@ -183,7 +242,10 @@ namespace Exercises.Level1
         /// </summary>
         public int[] MakeLast(int[] nums)
         {
-            throw new NotImplementedException();
+            int[] newArray = new int[nums.Length * 2];
+            newArray[newArray.Length - 1] = nums[nums.Length - 1];
+
+            return newArray;
         }
 
         /// <summary>
@@ -196,7 +258,26 @@ namespace Exercises.Level1
         /// </summary>
         public bool Double23(int[] nums)
         {
-            throw new NotImplementedException();
+            if (nums.Length == 0 || nums == null) return false;
+
+
+            // dark magic below, need loops...
+            // bool twiceTwo = nums.Length == 2 ? nums[0] == 2 && nums[1] == 2 : (nums[0] == 2 || nums[1] == 2) && nums[2] == 2;
+            // bool twiceThree = nums.Length == 2 ? nums[0] == 3 && nums[1] == 3  : (nums[0] == 3 || nums[1] == 3) && nums[2] == 3;
+
+            // return twiceTwo || twiceThree;
+
+            // From here we have a green light to use loops.
+            int countTwo = 0;
+            int countThree = 0;
+
+            foreach (var num in nums) 
+            {
+                if (num == 2) countTwo++;
+                if (num == 3) countThree++;
+            }
+
+            return countTwo == 2 || countThree == 2;
         }
 
         /// <summary>
@@ -209,7 +290,24 @@ namespace Exercises.Level1
         /// </summary>
         public int[] Fix23(int[] nums)
         {
-            throw new NotImplementedException();
+
+            int[] newArray = nums;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                int num = nums[i];
+
+                bool isTwo = num == 2;
+                bool isLastElement = i == nums.Length - 1;
+                bool followedByThree = isLastElement ? false : nums[i + 1] == 3;
+
+                if (isTwo && followedByThree) {
+                    newArray[i + 1] = 0;
+                    break;
+                }
+            }
+
+            return newArray;
         }
 
         /// <summary>
