@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Exercises.Level1
 {
@@ -331,7 +332,23 @@ namespace Exercises.Level1
         /// </summary>
         public int Start1(int[] a, int[] b)
         {
-            throw new NotImplementedException();
+            int count = 0;
+            foreach (var num in a) {
+                if (num == 1) {
+                    count++;
+                    break;
+                }
+            }
+            foreach (var num in b)
+            {
+                if (num == 1)
+                {
+                    count++;
+                    break;
+                }
+            }
+
+            return count;
         }
 
         /// <summary>
@@ -344,7 +361,20 @@ namespace Exercises.Level1
         /// </summary>
         public int[] BiggerTwo(int[] a, int[] b)
         {
-            throw new NotImplementedException();
+            int sumA = 0;
+            foreach (var num in a) {
+                sumA += num;
+            }
+
+            int sumB = 0;
+            foreach (var num in b)
+            {
+                sumB += num;
+            }
+
+            if (sumB > sumA) { return b; };
+
+            return a;
         }
 
         /// <summary>
@@ -357,7 +387,7 @@ namespace Exercises.Level1
         /// </summary>
         public int[] MakeMiddle(int[] nums)
         {
-            throw new NotImplementedException();
+            return new int[] { nums[nums.Length / 2 -1], nums[nums.Length/2]};
         }
 
         /// <summary>
@@ -370,7 +400,7 @@ namespace Exercises.Level1
         /// </summary>
         public int[] PlusTwo(int[] a, int[] b)
         {
-            throw new NotImplementedException();
+            return a.Concat(b).ToArray();
         }
 
         /// <summary>
@@ -383,7 +413,13 @@ namespace Exercises.Level1
         /// </summary>
         public int[] SwapEnds(int[] nums)
         {
-            throw new NotImplementedException();
+
+            int[] newArrayWithSwap = (int[])nums.Clone(); // shallow copy
+
+            newArrayWithSwap[0] = nums[nums.Length - 1];
+            newArrayWithSwap[nums.Length - 1] = nums[0];
+
+            return newArrayWithSwap;
         }
 
         /// <summary>
@@ -396,7 +432,7 @@ namespace Exercises.Level1
         /// </summary>
         public int[] MidThree(int[] nums)
         {
-            throw new NotImplementedException();
+            return new int[] { nums[nums.Length / 2 - 1], nums[nums.Length / 2], nums[nums.Length / 2 + 1] };
         }
 
         /// <summary>
@@ -409,7 +445,33 @@ namespace Exercises.Level1
         /// </summary>
         public int MaxTriple(int[] nums)
         {
-            throw new NotImplementedException();
+            int first = nums[0];
+            int last = nums[nums.Length - 1];
+            int middle = nums[nums.Length / 2];
+
+            if (first > last)
+            {
+                
+                if (first > middle)
+                {
+                    return first;
+                }
+                else
+                {
+                    return middle;
+                }
+            }
+            else
+            {
+                if (last > middle)
+                {
+                    return last;
+                }
+                else
+                {
+                    return middle;
+                }
+            }
         }
 
         /// <summary>
@@ -422,7 +484,9 @@ namespace Exercises.Level1
         /// </summary>
         public int[] FrontPiece(int[] nums)
         {
-            throw new NotImplementedException();
+         
+            return nums.Length < 2 ? nums : new int[] { nums[0], nums[1] };
+
         }
 
         /// <summary>
@@ -435,7 +499,26 @@ namespace Exercises.Level1
         /// </summary>
         public bool Unlucky1(int[] nums)
         {
-            throw new NotImplementedException();
+       
+            if (nums.Length < 2 || nums == null) return false;
+
+            int headStartIndex = 0;
+            int tailStartIndex = nums.Length == 2 ? 0 : nums.Length - 3; // -3 give space to trailing numbers
+            int[] slicesToCheck = { headStartIndex, tailStartIndex};
+
+            foreach (var sliceStartIndex in slicesToCheck) {
+
+                for (int i = sliceStartIndex; i < sliceStartIndex + 2; i++)
+                {
+                    bool isUnlucky = nums[i] == 1 && nums[i + 1] == 3;
+                    if (isUnlucky) return true;
+                }
+
+            }
+
+            return false;
+
+
         }
 
         /// <summary>
