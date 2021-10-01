@@ -96,8 +96,12 @@ namespace Exercises.Level1
         /// </summary>
         public int Sum3(int[] nums)
         {
-            // we do not use loop here as per requirements
-            return nums[0] + nums[1] + nums[2];
+
+            int sum = 0;
+            foreach (var num in nums) {
+                sum += num;
+            }
+            return sum;
         }
 
         /// <summary>
@@ -140,10 +144,14 @@ namespace Exercises.Level1
         {
             var isFirstLargest = nums[0] >= nums[nums.Length - 1];
 
-            int[] newArrayFirst = { nums[0], nums[0], nums[0]};
-            int[] newArrayLast = { nums[nums.Length -1], nums[nums.Length - 1], nums[nums.Length - 1] };
+            int[] newArray = new int [3];
 
-            return isFirstLargest ? newArrayFirst : newArrayLast;
+            for (int i = 0; i < newArray.Length; i++)
+            {
+                newArray[i] = isFirstLargest ? nums[0] : nums[nums.Length - 1];
+            }
+
+            return newArray;
         }
 
         /// <summary>
@@ -162,6 +170,7 @@ namespace Exercises.Level1
             if (nums.Length < 2 ) return nums[0];
 
             return nums[0] + nums[1];
+
         }
 
         /// <summary>
@@ -210,10 +219,14 @@ namespace Exercises.Level1
         /// </summary>
         public bool Has23(int[] nums)
         {
-            var isEqualsTwo = nums[0] == 2 || nums[1] == 2;
-            var isEqualsThree = nums[0] == 3 || nums[1] == 3;
+            bool containsTwoOrThree = false;
 
-            return isEqualsTwo || isEqualsThree;
+            foreach (var num in nums)
+            {
+                if (num == 2 || num == 3) containsTwoOrThree = true;
+            }
+
+            return containsTwoOrThree;
         }
 
         /// <summary>
@@ -225,10 +238,15 @@ namespace Exercises.Level1
         /// </summary>
         public bool No23(int[] nums)
         {
-            var isEqualsTwo = nums[0] == 2 || nums[1] == 2;
-            var isEqualsThree = nums[0] == 3 || nums[1] == 3;
+  
+            bool containsTwoOrThree = false;
 
-            return !isEqualsTwo && !isEqualsThree;
+            foreach (var num in nums)
+            {
+                if(num == 2 || num == 3) containsTwoOrThree = true;
+            }
+
+            return !containsTwoOrThree;
         }
 
         /// <summary>
@@ -259,13 +277,6 @@ namespace Exercises.Level1
         public bool Double23(int[] nums)
         {
             if (nums.Length == 0 || nums == null) return false;
-
-
-            // dark magic below, need loops...
-            // bool twiceTwo = nums.Length == 2 ? nums[0] == 2 && nums[1] == 2 : (nums[0] == 2 || nums[1] == 2) && nums[2] == 2;
-            // bool twiceThree = nums.Length == 2 ? nums[0] == 3 && nums[1] == 3  : (nums[0] == 3 || nums[1] == 3) && nums[2] == 3;
-
-            // return twiceTwo || twiceThree;
 
             // From here we have a green light to use loops.
             int countTwo = 0;
