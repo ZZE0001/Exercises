@@ -532,7 +532,23 @@ namespace Exercises.Level1
         /// </summary>
         public int[] Make2(int[] a, int[] b)
         {
-            throw new NotImplementedException();
+           
+
+            int[] newArrayWith2 = new int[2];
+
+            for (int i = 0; i < 2; i++) {
+
+                if (a.Length == 0)
+                {
+                    newArrayWith2[i] = b[i];
+                }
+                else {
+                    newArrayWith2[i] = i < a.Length ? a[i] : b[i - 1];
+                }
+
+            }
+
+            return newArrayWith2;
         }
 
         /// <summary>
@@ -545,7 +561,42 @@ namespace Exercises.Level1
         /// </summary>
         public int[] Front11(int[] a, int[] b)
         {
-            throw new NotImplementedException();
+
+            int[][] allArrays = { a, b };
+
+            int filledArrayCount = 0;
+
+            foreach (var array in allArrays) {
+                if (array.Length > 0) filledArrayCount++;
+            }
+
+            int dynamicLength = filledArrayCount;
+            int[] newArrayWith2 = new int[dynamicLength];
+
+
+            int iterateLength = dynamicLength == 1 ? 1 : dynamicLength - 1;
+            for (int i = 0; i < iterateLength; i++)
+            {
+
+                if (a.Length == 0)
+                {
+                    newArrayWith2[i] = b[i];
+                }
+                else if (b.Length == 0)
+                {
+                    newArrayWith2[i] = a[i];
+                }
+                else
+                {
+                    newArrayWith2[i] = a[i];
+                    newArrayWith2[i + 1] = b[i];
+                }
+   
+            }
+
+           
+
+            return newArrayWith2;
         }
     }
 }
