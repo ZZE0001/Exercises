@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Exercises.Level1
 {
@@ -17,7 +19,13 @@ namespace Exercises.Level1
         /// </summary>
         public int CountEvens(int[] nums)
         {
-            throw new NotImplementedException();
+            var countEven = 0;
+
+            foreach (var num in nums) {
+                if (num % 2 == 0) countEven++;
+            }
+
+            return countEven;
         }
 
         /// <summary>
@@ -31,7 +39,16 @@ namespace Exercises.Level1
         /// </summary>
         public int BigDiff(int[] nums)
         {
-            throw new NotImplementedException();
+            int smallest = nums[0];
+            var largest = nums[0];
+
+            foreach (int num in nums) {
+                smallest = Math.Min(num, smallest);
+                largest = Math.Max(num, largest);
+            }
+
+            var result = Math.Abs(largest - smallest);
+            return result;
         }
 
         /// <summary>
@@ -47,12 +64,27 @@ namespace Exercises.Level1
         /// </summary>
         public int CenteredAverage(int[] nums)
         {
-            throw new NotImplementedException();
+            List<int> newList = new List<int>(nums);
+
+            int smallest = newList[0];
+            var largest = newList[0];
+
+            foreach (int num in nums)
+            {
+                smallest = Math.Min(num, smallest);
+                largest = Math.Max(num, largest);
+            }
+
+            newList.Remove(smallest);
+            newList.Remove(largest);
+
+            int result = Convert.ToInt32(newList.Average());
+            return result;
         }
 
         /// <summary>
         /// Return the sum of the numbers in the array, returning 0 for an empty array. Except the
-        /// number 13 is very unlucky, so it does not count and numbers that come immediately after
+        /// number 13 is very unlucky, so it does not count and one number that come immediately after
         /// a 13 also do not count.
         /// 
         /// sum13([1, 2, 2, 1]) → 6
@@ -61,7 +93,26 @@ namespace Exercises.Level1
         /// </summary>
         public int Sum13(int[] nums)
         {
-            throw new NotImplementedException();
+            var sum = 0;
+            var hasUnluckyNumber = false;
+            var numberAfter13Index = 0;
+
+            for (int i = 0; i < nums.Length; i++) {
+                var num = nums[i];
+
+                if (num == 13) {
+                    // skip 13
+                    // find next number's index
+                    hasUnluckyNumber = true;
+                    numberAfter13Index = i + 1;
+                } else if (hasUnluckyNumber && i == numberAfter13Index) { 
+                    // skip number after 13
+                } else {
+                   sum += num;
+                } 
+            }
+
+            return sum;
         }
 
         /// <summary>
@@ -75,7 +126,61 @@ namespace Exercises.Level1
         /// </summary>
         public int Sum67(int[] nums)
         {
-            throw new NotImplementedException();
+            // TODO: solve
+            List<int> newList = new List<int>(nums);
+
+            var sum = 0;
+            List<int> ignoreSectionStartIndex = new List<int>();
+            List<int> ignoreSectionEndIndex = new List<int>();
+
+            // find ignore sections
+            for (int i = 0; i < nums.Length; i++)
+            {
+                var num = nums[i];
+
+                // find section start
+                if (num == 6)
+                {
+                    // find section end
+                    for (int f = i + 1; f < nums.Length; f++) {
+                        var num2 = nums[f];
+
+                        //if (num2 == 6) {
+                         //   break;
+                        //}
+
+                        if (num2 == 7) {
+                            // if start and end exist add to lists
+                            ignoreSectionStartIndex.Add(i);
+                            ignoreSectionEndIndex.Add(f);
+                            break;
+                        }
+                    }
+                } 
+            }
+
+            // remove ignored sections 6..7
+            for (int i = 0; i < ignoreSectionStartIndex.Count; i++)
+            {
+                var countOfItemsToRemove = ignoreSectionEndIndex[i] - ignoreSectionStartIndex[i] + 1;
+                // remove this slice
+                newList.RemoveRange(ignoreSectionStartIndex[i], countOfItemsToRemove);
+                
+                // list indexes have changed now, thus shift indexes for next slice accordingly
+                if (i + 1 < ignoreSectionStartIndex.Count) {
+                    ignoreSectionStartIndex[i + 1] = ignoreSectionStartIndex[i + 1] - countOfItemsToRemove;
+                    ignoreSectionEndIndex[i + 1] = ignoreSectionEndIndex[i + 1] - countOfItemsToRemove;
+                }
+            }
+
+            // calculate sum with remaining sections
+            for (int i = 0; i < newList.Count; i++)
+            {
+                var num = newList[i];
+                sum += num;
+            }
+
+            return sum;
         }
 
         /// <summary>
@@ -87,7 +192,21 @@ namespace Exercises.Level1
         /// </summary>
         public bool Has22(int[] nums)
         {
-            throw new NotImplementedException();
+            var twoNextTwo = false;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                var num = nums[i];
+                var nextNum = i + 1 < nums.Length ? nums[i + 1] : 0;
+
+                if (num == 2 && nextNum == 2) {
+                    twoNextTwo = true;
+                    break;
+                }
+
+            }
+
+            return twoNextTwo;
         }
 
         /// <summary>
@@ -99,7 +218,25 @@ namespace Exercises.Level1
         /// </summary>
         public bool Lucky13(int[] nums)
         {
-            throw new NotImplementedException();
+            var hasOnes = false;
+            var hasThrees = false;
+
+            for (int i = 0; i < nums.Length; i++)
+            {
+                var num = nums[i];
+ 
+                if (num == 1)
+                {
+                    hasOnes = true;
+                }
+                if (num == 3)
+                {
+                    hasThrees = true;
+                }
+
+            }
+
+            return !hasOnes && !hasThrees;
         }
 
         /// <summary>
@@ -111,7 +248,16 @@ namespace Exercises.Level1
         /// </summary>
         public bool Sum28(int[] nums)
         {
-            throw new NotImplementedException();
+            var sum = 0;
+
+            foreach(var num in nums)
+            {
+                if (num == 2) {
+                    sum += num;
+                }
+            }
+
+            return sum == 8;
         }
 
         /// <summary>
@@ -123,7 +269,22 @@ namespace Exercises.Level1
         /// </summary>
         public bool More14(int[] nums)
         {
-            throw new NotImplementedException();
+            var countOnes = 0;
+            var countFours = 0;
+
+            foreach (var num in nums)
+            {
+                if (num == 1)
+                {
+                    countOnes++;
+                }
+                if (num == 4)
+                {
+                    countFours++;
+                }
+            }
+
+            return countOnes > countFours;
         }
 
         /// <summary>
@@ -138,7 +299,13 @@ namespace Exercises.Level1
         /// </summary>
         public int[] FizzArray(int n)
         {
-            throw new NotImplementedException();
+            int[] newArray = new int[n];
+
+            for (int i = 0; i < newArray.Length; i++) {
+                newArray[i] = i;
+            }
+
+            return newArray;
         }
 
         /// <summary>
@@ -150,7 +317,18 @@ namespace Exercises.Level1
         /// </summary>
         public bool Only14(int[] nums)
         {
-            throw new NotImplementedException();
+            var hasForeignNum = false;
+
+            foreach (var num in nums)
+            {
+                if (num != 1 && num != 4)
+                {
+                    hasForeignNum = true;
+                }
+                
+            }
+
+            return !hasForeignNum;
         }
 
         /// <summary>
